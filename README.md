@@ -1,1 +1,1 @@
-# ChatGPT-Discord-Bot
+# Auto-Midjourney-Discord-Bot

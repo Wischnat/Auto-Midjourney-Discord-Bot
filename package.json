@@ -1,0 +1,23 @@
+{
+  "name": "auto-midjourney-discord-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsc && node ./dist index.js",
+    "start:dev": "tsc-watch --onSuccess \"node dist/index.js\" "
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.4.0",
+    "discord.js": "^14.11.0",
+    "dotenv": "^16.1.4"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.1",
+    "tsc-watch": "^6.0.4",
+    "typescript": "^5.1.3"
+  }
+}
