@@ -1,2 +1,4 @@
 import { ChatInputCommand } from "../types/chatInputCommand";
-export const chatInputCommands: ChatInputCommand[] = [];
+import * as commandModules from "../commands/chatInputCommands/index";
+
+export const chatInputCommands: ChatInputCommand[] = Object.values(commandModules);
