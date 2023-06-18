@@ -10,4 +10,4 @@ const client = new Client({
 ready(client);
 interactionCreate(client);
 
-client.login(config.DISCORD_TOKEN);
+client.login(config.MY_BOT_DISCORD_TOKEN);
