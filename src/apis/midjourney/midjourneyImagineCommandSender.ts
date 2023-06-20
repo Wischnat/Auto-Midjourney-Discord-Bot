@@ -4,6 +4,7 @@ import { APIApplicationCommand } from "discord.js";
 import { DiscordAPIPayload } from "../../types/discordAPIPayload";
 import { createHash, randomUUID, Hash } from "crypto";
 import { AxiosRequestConfig } from "axios";
+import { GPT } from "../gpt/gpt";
 
 export class MidjourneyImagineCommandSender {
   private static _instance: MidjourneyImagineCommandSender;
@@ -13,6 +14,7 @@ export class MidjourneyImagineCommandSender {
   private _data: DiscordAPIPayload | undefined;
   private _header: AxiosRequestConfig;
   private _intervalMS: number; // Discord Rate Limited < 2s
+  private _gpt: GPT;
 
   private constructor() {
     this._enableCommandSending = false;
@@ -25,6 +27,7 @@ export class MidjourneyImagineCommandSender {
         "Content-Type": `multipart/form-data`,
       },
     };
+    this._gpt = new GPT();
   }
 
   public static async getInstance(): Promise<MidjourneyImagineCommandSender> {
@@ -38,8 +41,8 @@ export class MidjourneyImagineCommandSender {
   public sendCommands(): void {
     const url = `${this._url}/interactions`;
     let count: number = 0;
-    const testPrompt =
-      "sci-fi cosmic diarama of a quasar and jellyfish in a resin cube, volumetric lighting, high resolution, hdr, sharpen, Photorealism";
+    let prompts: string[] = [];
+    let promptCounter: number = 0;
 
     const interval = setInterval(async () => {
       try {
@@ -48,7 +51,13 @@ export class MidjourneyImagineCommandSender {
           return;
         }
 
-        this._data!.data.options[0].value = testPrompt;
+        if (prompts.length === promptCounter) {
+          promptCounter = 0;
+          prompts = await this._gpt.generatePrompts();
+          console.log("Set new prompts");
+        }
+
+        this._data!.data.options[0].value = prompts.at(promptCounter++);
         this._data!.nonce = this.calcNonce();
 
         await axios.post(
