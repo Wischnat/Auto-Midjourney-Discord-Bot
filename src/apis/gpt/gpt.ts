@@ -1,4 +1,5 @@
 import { Configuration, OpenAIApi } from "openai";
+import config from "../../config";
 
 export class GPT {
   private _openAI: OpenAIApi;
@@ -14,7 +15,7 @@ export class GPT {
 
   public constructor() {
     const configuration: Configuration = new Configuration({
-      apiKey: process.env.OPENAI_API_KEY,
+      apiKey: config.OPENAI_API_KEY,
     });
     this._openAI = new OpenAIApi(configuration);
     this._prompt = `

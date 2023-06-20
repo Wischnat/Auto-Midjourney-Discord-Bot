@@ -6,6 +6,7 @@ const {
   CHANNEL_ID,
   MIDJOURNEY_BOT_APPLICATION_ID,
   AUTHORIZATION,
+  OPENAI_API_KEY,
 } = process.env;
 
 if (
@@ -14,7 +15,8 @@ if (
   !SERVER_ID ||
   !CHANNEL_ID ||
   !MIDJOURNEY_BOT_APPLICATION_ID ||
-  !AUTHORIZATION
+  !AUTHORIZATION ||
+  !OPENAI_API_KEY
 ) {
   throw new Error(
     `Missing environment variables: 
@@ -23,7 +25,9 @@ if (
     SERVER_ID:${SERVER_ID},
     CHANNEL_ID:${CHANNEL_ID}, 
     MIDJOURNEY_BOT_APPLICATION_ID:${MIDJOURNEY_BOT_APPLICATION_ID}
-    AUTHORIZATION: ${AUTHORIZATION}`
+    AUTHORIZATION: ${AUTHORIZATION},
+    OPENAI_API_KEY: ${OPENAI_API_KEY}
+    `
   );
 }
 
@@ -34,6 +38,7 @@ const config: Record<string, string> = {
   CHANNEL_ID,
   MIDJOURNEY_BOT_APPLICATION_ID,
   AUTHORIZATION,
+  OPENAI_API_KEY
 };
 
 export default config;
