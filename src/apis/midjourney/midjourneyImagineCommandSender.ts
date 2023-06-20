@@ -5,6 +5,7 @@ import { DiscordAPIPayload } from "../../types/discordAPIPayload";
 import { createHash, randomUUID, Hash } from "crypto";
 import { AxiosRequestConfig } from "axios";
 import { GPT } from "../gpt/gpt";
+import { clearIntervalAsync, setIntervalAsync } from "set-interval-async";
 
 export class MidjourneyImagineCommandSender {
   private static _instance: MidjourneyImagineCommandSender;
@@ -20,7 +21,7 @@ export class MidjourneyImagineCommandSender {
     this._enableCommandSending = false;
     this._url = "https://discord.com/api/v9";
     this._limit = 2;
-    this._intervalMS = 2000;
+    this._intervalMS = 2500;
     this._header = {
       headers: {
         Authorization: config.AUTHORIZATION,
@@ -44,10 +45,10 @@ export class MidjourneyImagineCommandSender {
     let prompts: string[] = [];
     let promptCounter: number = 0;
 
-    const interval = setInterval(async () => {
+    const interval = setIntervalAsync(async () => {
       try {
         if (this._limit <= count || !this._enableCommandSending) {
-          clearInterval(interval);
+          await clearIntervalAsync(interval);
           return;
         }
 
