@@ -1,5 +1,5 @@
 import { Configuration, OpenAIApi } from "openai";
-import config from "../../config";
+import config from "../../config/config";
 
 export class GPT {
   private _openAI: OpenAIApi;

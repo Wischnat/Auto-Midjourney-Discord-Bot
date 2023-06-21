@@ -1,5 +1,5 @@
 import axios from "axios";
-import config from "../../config";
+import config from "../../config/config";
 import { APIApplicationCommand } from "discord.js";
 import { DiscordAPIPayload } from "../../types/discordAPIPayload";
 import { createHash, randomUUID, Hash } from "crypto";

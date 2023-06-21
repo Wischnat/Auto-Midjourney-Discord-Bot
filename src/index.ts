@@ -1,7 +1,7 @@
 import { Client, GatewayIntentBits } from "discord.js";
 import ready from "./events/ready.event";
 import interactionCreate from "./events/interactionCreate.event";
-import config from "./config";
+import config from "./config/config";
 
 const client = new Client({
   intents: [GatewayIntentBits.Guilds],
