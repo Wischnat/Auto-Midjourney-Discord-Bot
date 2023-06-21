@@ -6,11 +6,11 @@ import { createHash, randomUUID, Hash } from "crypto";
 import { AxiosRequestConfig } from "axios";
 import { GPT } from "../gpt/gpt";
 import { clearIntervalAsync, setIntervalAsync } from "set-interval-async";
-
+import { midjourney } from "../../config/config.json";
 export class MidjourneyImagineCommandSender {
   private static _instance: MidjourneyImagineCommandSender;
   private _enableCommandSending: boolean;
-  private _limit: number;
+  private _limit: number; //Default value -> Midjourney Basic Plan: ~200 / month
   private _url: string;
   private _data: DiscordAPIPayload | undefined;
   private _header: AxiosRequestConfig;
@@ -20,7 +20,7 @@ export class MidjourneyImagineCommandSender {
   private constructor() {
     this._enableCommandSending = false;
     this._url = "https://discord.com/api/v9";
-    this._limit = 2;
+    this._limit = midjourney.limit;
     this._intervalMS = 2500;
     this._header = {
       headers: {
@@ -75,6 +75,10 @@ export class MidjourneyImagineCommandSender {
 
   public set enableCommandSending(value: boolean) {
     this._enableCommandSending = value;
+  }
+
+  public set limit(value: number) {
+    this._limit = value;
   }
 
   private async initData(): Promise<void> {
