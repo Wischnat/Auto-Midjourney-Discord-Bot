@@ -81,6 +81,10 @@ export class MidjourneyImagineCommandSender {
     this._limit = value;
   }
 
+  public get gpt(): GPT {
+    return this._gpt;
+  }
+
   private async initData(): Promise<void> {
     try {
       const application_commands: APIApplicationCommand[] =

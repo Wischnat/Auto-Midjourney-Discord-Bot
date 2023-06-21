@@ -1,5 +1,6 @@
 import { Configuration, OpenAIApi } from "openai";
 import config from "../../config/config";
+import { gpt } from "../../config/config.json";
 
 export class GPT {
   private _openAI: OpenAIApi;
@@ -12,6 +13,7 @@ export class GPT {
   private _topP: number;
   private _frequencyPenalty: number;
   private _presence_Penalty: number;
+  private _models: Map<string, number>;
 
   public constructor() {
     const configuration: Configuration = new Configuration({
@@ -24,9 +26,12 @@ export class GPT {
     The structure of the output should be in JSON format: {"prompts":["string", "string"]}
     `;
 
+    // https://community.openai.com/t/request-query-for-a-models-max-tokens/161891
+    this._models = new Map<string, number>([["text-davinci-003", 4097]]);
+
     // "These values were taken from the OpenAI playground."
-    this._model = "text-davinci-003";
-    this._maxTokens = 256;
+    this._model = gpt.model;
+    this._maxTokens = gpt.maxTokens;
     this._temperature = 1.0;
     this._topP = 1.0;
     this._frequencyPenalty = 0;
@@ -56,5 +61,17 @@ export class GPT {
     } catch (error) {
       throw error; // Rethrow the error or handle it as needed
     }
+  }
+
+  public get models(): Map<string, number> {
+    return this._models;
+  }
+
+  public set model(value: string) {
+    this._model = value;
+  }
+
+  public set maxTokens(value: number) {
+    this._maxTokens = value;
   }
 }
