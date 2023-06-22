@@ -4,4 +4,5 @@ export interface GptConfig {
   temperature: number;
   topP: number;
   frequencyPenalty: number;
+  presencePenalty: number;
 }

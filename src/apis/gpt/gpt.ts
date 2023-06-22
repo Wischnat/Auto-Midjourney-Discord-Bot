@@ -12,7 +12,7 @@ export class GPT {
   private _temperature: number;
   private _topP: number;
   private _frequencyPenalty: number;
-  private _presence_Penalty: number;
+  private _presencePenalty: number;
   private _models: Map<string, number>;
 
   public constructor() {
@@ -35,7 +35,7 @@ export class GPT {
     this._temperature = gpt.temperature;
     this._topP = gpt.topP;
     this._frequencyPenalty = gpt.frequencyPenalty;
-    this._presence_Penalty = 0;
+    this._presencePenalty = gpt.presencePenalty;
   }
 
   public async generatePrompts(): Promise<string[]> {
@@ -49,7 +49,7 @@ export class GPT {
         temperature: this._temperature,
         top_p: this._topP,
         frequency_penalty: this._frequencyPenalty,
-        presence_penalty: this._presence_Penalty,
+        presence_penalty: this._presencePenalty,
       });
 
       const text = completion.data.choices.at(0)?.text!;
@@ -86,4 +86,7 @@ export class GPT {
     this._frequencyPenalty = value;
   }
 
+  public set presencePenalty(value: number) {
+    this._presencePenalty = value;
+  }
 }
