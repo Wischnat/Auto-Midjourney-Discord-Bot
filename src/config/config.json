@@ -6,6 +6,7 @@
     "model": "text-davinci-003",
     "maxTokens": 4097,
     "temperature": 1,
-    "topP": 1
+    "topP": 1,
+    "frequencyPenalty": 0
   }
 }

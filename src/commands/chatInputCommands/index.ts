@@ -5,3 +5,5 @@ export * from "./setLimit.command";
 export * from "./setModel.command";
 export * from "./setTemperature.command";
 export * from "./setTopP.command";
+export * from "./setFrequencyPenalty.command";
+

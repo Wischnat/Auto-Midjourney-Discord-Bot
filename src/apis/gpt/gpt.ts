@@ -34,7 +34,7 @@ export class GPT {
     this._maxTokens = gpt.maxTokens;
     this._temperature = gpt.temperature;
     this._topP = gpt.topP;
-    this._frequencyPenalty = 0;
+    this._frequencyPenalty = gpt.frequencyPenalty;
     this._presence_Penalty = 0;
   }
 
@@ -82,4 +82,8 @@ export class GPT {
   public set topP(value: number) {
     this._topP = value;
   }
+  public set frequencyPenalty(value: number) {
+    this._frequencyPenalty = value;
+  }
+
 }

@@ -3,4 +3,5 @@ export interface GptConfig {
   maxTokens: number;
   temperature: number;
   topP: number;
+  frequencyPenalty: number;
 }
