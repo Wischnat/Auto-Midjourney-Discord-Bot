@@ -5,6 +5,7 @@
   "gpt": {
     "model": "text-davinci-003",
     "maxTokens": 4097,
-    "temperature": 1
+    "temperature": 1,
+    "topP": 1
   }
 }

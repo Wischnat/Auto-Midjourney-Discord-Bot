@@ -4,3 +4,4 @@ export * from "./stopSendMidjourneyImagineCommands.command";
 export * from "./setLimit.command";
 export * from "./setModel.command";
 export * from "./setTemperature.command";
+export * from "./setTopP.command";

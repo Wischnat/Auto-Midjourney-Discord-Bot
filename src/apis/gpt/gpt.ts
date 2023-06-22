@@ -33,7 +33,7 @@ export class GPT {
     this._model = gpt.model;
     this._maxTokens = gpt.maxTokens;
     this._temperature = gpt.temperature;
-    this._topP = 1.0;
+    this._topP = gpt.topP;
     this._frequencyPenalty = 0;
     this._presence_Penalty = 0;
   }
@@ -77,5 +77,9 @@ export class GPT {
 
   public set temperature(value: number) {
     this._temperature = value;
+  }
+
+  public set topP(value: number) {
+    this._topP = value;
   }
 }
