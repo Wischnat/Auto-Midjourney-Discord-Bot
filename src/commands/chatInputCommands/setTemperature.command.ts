@@ -1,12 +1,7 @@
-import {
-  ApplicationCommandOptionType,
-  CommandInteraction,
-} from "discord.js";
+import { ApplicationCommandOptionType, CommandInteraction } from "discord.js";
 import { ChatInputCommand } from "../../types/chatInputCommand";
 import { MidjourneyImagineCommandSender } from "../../apis/midjourney/midjourneyImagineCommandSender";
-import fs from "fs";
-import path from "path";
-import config from "../../config/config.json";
+import { updateConfig } from "../../utils";
 
 const run = async (interaction: CommandInteraction) => {
   try {
@@ -15,10 +10,7 @@ const run = async (interaction: CommandInteraction) => {
     const midjourneyImagineCommandSender =
       await MidjourneyImagineCommandSender.getInstance();
 
-    config.gpt.temperature = temperature;
-    const filePath = path.join(__dirname, "../../config/config.json");
-    fs.writeFileSync(filePath, JSON.stringify(config));
-
+    updateConfig("gpt", "temperature", temperature);
     midjourneyImagineCommandSender.gpt.temperature = temperature;
 
     return await interaction.editReply(`Temperature: ${temperature}`);

@@ -1,9 +1,7 @@
 import { ApplicationCommandOptionType, CommandInteraction } from "discord.js";
 import { ChatInputCommand } from "../../types/chatInputCommand";
 import { MidjourneyImagineCommandSender } from "../../apis/midjourney/midjourneyImagineCommandSender";
-import fs from "fs";
-import path from "path";
-import config from "../../config/config.json";
+import { updateConfig } from "../../utils";
 
 const run = async (interaction: CommandInteraction) => {
   try {
@@ -11,9 +9,7 @@ const run = async (interaction: CommandInteraction) => {
     const midjourneyImagineCommandSender =
       await MidjourneyImagineCommandSender.getInstance();
 
-    config.midjourney.limit = limit;
-    const filePath = path.join(__dirname, "../../config/config.json");
-    fs.writeFileSync(filePath, JSON.stringify(config));
+    updateConfig("midjourney", "limit", limit);
     midjourneyImagineCommandSender.limit = limit;
 
     return await interaction.editReply(`Limit: ${limit}`);

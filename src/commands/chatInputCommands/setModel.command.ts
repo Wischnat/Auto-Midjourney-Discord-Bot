@@ -5,9 +5,7 @@ import {
 } from "discord.js";
 import { ChatInputCommand } from "../../types/chatInputCommand";
 import { MidjourneyImagineCommandSender } from "../../apis/midjourney/midjourneyImagineCommandSender";
-import fs from "fs";
-import path from "path";
-import config from "../../config/config.json";
+import { updateConfig } from "../../utils";
 
 const run = async (interaction: CommandInteraction) => {
   try {
@@ -17,11 +15,8 @@ const run = async (interaction: CommandInteraction) => {
     const maxTokens: number =
       midjourneyImagineCommandSender.gpt.models.get(model)!;
 
-    config.gpt.model = model;
-    config.gpt.maxTokens = maxTokens;
-    const filePath = path.join(__dirname, "../../config/config.json");
-    fs.writeFileSync(filePath, JSON.stringify(config));
-
+    updateConfig("gpt", "model", model);
+    updateConfig("gpt", "maxTokens", maxTokens);
     midjourneyImagineCommandSender.gpt.model = model;
     midjourneyImagineCommandSender.gpt.maxTokens = maxTokens;
 
