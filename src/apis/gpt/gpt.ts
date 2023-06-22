@@ -32,7 +32,7 @@ export class GPT {
     // "These values were taken from the OpenAI playground."
     this._model = gpt.model;
     this._maxTokens = gpt.maxTokens;
-    this._temperature = 1.0;
+    this._temperature = gpt.temperature;
     this._topP = 1.0;
     this._frequencyPenalty = 0;
     this._presence_Penalty = 0;
@@ -73,5 +73,9 @@ export class GPT {
 
   public set maxTokens(value: number) {
     this._maxTokens = value;
+  }
+
+  public set temperature(value: number) {
+    this._temperature = value;
   }
 }
