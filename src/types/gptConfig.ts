@@ -5,4 +5,5 @@ export interface GptConfig {
   topP: number;
   frequencyPenalty: number;
   presencePenalty: number;
+  promptRole: string;
 }

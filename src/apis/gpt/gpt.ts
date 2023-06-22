@@ -8,6 +8,7 @@ export class GPT {
   //https://platform.openai.com/docs/models/overview
   private _model: string;
   private _prompt: string;
+  private _promptRole: string;
   private _maxTokens: number;
   private _temperature: number;
   private _topP: number;
@@ -20,8 +21,9 @@ export class GPT {
       apiKey: config.OPENAI_API_KEY,
     });
     this._openAI = new OpenAIApi(configuration);
+    this._promptRole = gpt.promptRole;
     this._prompt = `
-    Assume the role of a midjourney (image creation) prompt creator.
+    ${this._promptRole}
     Create 2 random stock photo prompts for me.
     The structure of the output should be in JSON format: {"prompts":["string", "string"]}
     `;
@@ -88,5 +90,9 @@ export class GPT {
 
   public set presencePenalty(value: number) {
     this._presencePenalty = value;
+  }
+
+  public set promptRole(value: string) {
+    this._promptRole = value;
   }
 }
