@@ -3,7 +3,7 @@ import {
   ApplicationCommandOptionType,
   CommandInteraction,
 } from "discord.js";
-import { ChatInputCommand } from "../../types/chatInputCommand";
+import { ChatInputCommand } from "../../types/index";
 import { MidjourneyImagineCommandSender } from "../../apis/midjourney/midjourneyImagineCommandSender";
 import { updateConfig } from "../../utils";
 

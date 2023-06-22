@@ -1,5 +1,5 @@
 import { CommandInteraction, Client, Interaction } from "discord.js";
-import { ChatInputCommand } from "../types/chatInputCommand";
+import { ChatInputCommand } from "../types/index";
 import { chatInputCommands } from "../commands/commands";
 
 export default (client: Client): void => {

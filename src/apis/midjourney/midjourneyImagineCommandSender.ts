@@ -1,7 +1,7 @@
 import axios from "axios";
 import config from "../../config/config";
 import { APIApplicationCommand } from "discord.js";
-import { DiscordAPIPayload } from "../../types/discordAPIPayload";
+import { DiscordAPIPayload } from "../../types/index";
 import { createHash, randomUUID, Hash } from "crypto";
 import { AxiosRequestConfig } from "axios";
 import { GPT } from "../gpt/gpt";

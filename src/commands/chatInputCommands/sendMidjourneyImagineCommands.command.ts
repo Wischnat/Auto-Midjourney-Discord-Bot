@@ -1,5 +1,5 @@
 import { CommandInteraction } from "discord.js";
-import { ChatInputCommand } from "../../types/chatInputCommand";
+import { ChatInputCommand } from "../../types/index";
 import { MidjourneyImagineCommandSender } from "../../apis/midjourney/midjourneyImagineCommandSender";
 
 const run = async (interaction: CommandInteraction) => {
