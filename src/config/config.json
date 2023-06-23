@@ -10,6 +10,7 @@
     "frequencyPenalty": 0,
     "presencePenalty": 0,
     "promptRole": "Assume the role of a midjourney (image creation) prompt creator.",
-    "maxPrompts": 2
+    "maxPrompts": 2,
+    "promptTopics": ""
   }
 }

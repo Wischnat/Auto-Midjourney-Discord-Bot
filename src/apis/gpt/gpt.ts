@@ -10,7 +10,7 @@ export class GPT {
   private _prompt: string;
   private _promptRole: string;
   // private _promptStructure: string;
-  // private _promptTopics: string;
+  private _promptTopics: string;
   private _maxPrompts: number;
   private _maxTokens: number;
   private _temperature: number;
@@ -26,9 +26,10 @@ export class GPT {
     this._openAI = new OpenAIApi(configuration);
     this._promptRole = gpt.promptRole;
     this._maxPrompts = gpt.maxPrompts;
+    this._promptTopics = gpt.promptTopics;
     this._prompt = `
     ${this._promptRole}
-    Create ${this._maxPrompts} random stock photo prompts for me.
+    Create ${this._maxPrompts} random midjourney prompts about ${this._promptTopics}.
     The structure of the output should be in JSON format: {"prompts":["string", "string"]}
     `;
 
@@ -102,5 +103,9 @@ export class GPT {
 
   public set maxPrompts(value: number) {
     this._maxPrompts = value;
+  }
+
+  public set promptTopics(value: string) {
+    this._promptTopics = value;
   }
 }
