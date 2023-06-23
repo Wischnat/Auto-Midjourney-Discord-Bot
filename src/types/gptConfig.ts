@@ -6,4 +6,5 @@ export interface GptConfig {
   frequencyPenalty: number;
   presencePenalty: number;
   promptRole: string;
+  maxPrompts: number;
 }

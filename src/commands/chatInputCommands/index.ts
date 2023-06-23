@@ -8,3 +8,4 @@ export * from "./setTopP.command";
 export * from "./setFrequencyPenalty.command";
 export * from "./setPresencePenalty.command";
 export * from "./setPromptRole.command";
+export * from "./setMaxPrompts.command";
