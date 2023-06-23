@@ -9,7 +9,7 @@ export class GPT {
   private _model: string;
   private _prompt: string;
   private _promptRole: string;
-  // private _promptStructure: string;
+  private _promptStructure: string;
   private _promptTopics: string;
   private _maxPrompts: number;
   private _maxTokens: number;
@@ -27,10 +27,12 @@ export class GPT {
     this._promptRole = gpt.promptRole;
     this._maxPrompts = gpt.maxPrompts;
     this._promptTopics = gpt.promptTopics;
+    this._promptStructure =
+      'The structure of the output should be in JSON format: {"prompts":["string", "string"]}';
     this._prompt = `
     ${this._promptRole}
     Create ${this._maxPrompts} random midjourney prompts about ${this._promptTopics}.
-    The structure of the output should be in JSON format: {"prompts":["string", "string"]}
+    ${this._promptStructure}
     `;
 
     // https://community.openai.com/t/request-query-for-a-models-max-tokens/161891
