@@ -5,8 +5,8 @@ import { updateConfig } from "../../utils";
 
 const run = async (interaction: CommandInteraction) => {
   try {
-    const promptTopics: string = interaction.options.data.at(0)
-      ?.value! as string;
+    const promptTopics: string = interaction.options.data.at(0)!
+      .value as string;
     const midjourneyImagineCommandSender =
       await MidjourneyImagineCommandSender.getInstance();
 

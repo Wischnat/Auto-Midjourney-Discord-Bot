@@ -10,10 +10,6 @@ export const updateConfig = <T extends keyof Config, K extends keyof Config[T]>(
   key: K,
   value: Config[T][K]
 ) => {
-  try {
-    config[object][key] = value;
-    fs.writeFileSync(configFilePath, JSON.stringify(config));
-  } catch (error) {
-    throw error;
-  }
+  config[object][key] = value;
+  fs.writeFileSync(configFilePath, JSON.stringify(config));
 };

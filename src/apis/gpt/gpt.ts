@@ -48,28 +48,20 @@ export class GPT {
   }
 
   public async generatePrompts(): Promise<string[]> {
-    try {
-      let prompts: string[];
+    const completion = await this._openAI.createCompletion({
+      model: this._model,
+      prompt: this._prompt,
+      max_tokens: this._maxTokens,
+      temperature: this._temperature,
+      top_p: this._topP,
+      frequency_penalty: this._frequencyPenalty,
+      presence_penalty: this._presencePenalty,
+    });
 
-      const completion = await this._openAI.createCompletion({
-        model: this._model,
-        prompt: this._prompt,
-        max_tokens: this._maxTokens,
-        temperature: this._temperature,
-        top_p: this._topP,
-        frequency_penalty: this._frequencyPenalty,
-        presence_penalty: this._presencePenalty,
-      });
-
-      const text = completion.data.choices.at(0)?.text!;
-
-      const parsed = JSON.parse(text);
-      prompts = parsed.prompts;
-
-      return prompts;
-    } catch (error) {
-      throw error; // Rethrow the error or handle it as needed
-    }
+    const text = completion.data.choices.at(0)!.text!;
+    const parsed = JSON.parse(text);
+    
+    return parsed.prompts;
   }
 
   public get models(): Map<string, number> {

@@ -46,30 +46,26 @@ export class MidjourneyImagineCommandSender {
     let promptCounter: number = 0;
 
     const interval = setIntervalAsync(async () => {
-      try {
-        if (this._limit <= count || !this._enableCommandSending) {
-          await clearIntervalAsync(interval);
-          return;
-        }
-
-        if (prompts.length === promptCounter) {
-          promptCounter = 0;
-          prompts = await this._gpt.generatePrompts();
-          console.log("Set new prompts");
-        }
-
-        this._data!.data.options[0].value = prompts.at(promptCounter++);
-        this._data!.nonce = this.calcNonce();
-
-        await axios.post(
-          url,
-          { payload_json: JSON.stringify(this._data!) },
-          this._header
-        );
-        count++;
-      } catch (error: any) {
-        console.error(error);
+      if (this._limit <= count || !this._enableCommandSending) {
+        await clearIntervalAsync(interval);
+        return;
       }
+
+      if (prompts.length === promptCounter) {
+        promptCounter = 0;
+        prompts = await this._gpt.generatePrompts();
+        console.log("Set new prompts");
+      }
+
+      this._data!.data.options[0].value = prompts.at(promptCounter++);
+      this._data!.nonce = this.calcNonce();
+
+      await axios.post(
+        url,
+        { payload_json: JSON.stringify(this._data!) },
+        this._header
+      );
+      count++;
     }, this._intervalMS);
   }
 
@@ -86,43 +82,39 @@ export class MidjourneyImagineCommandSender {
   }
 
   private async initData(): Promise<void> {
-    try {
-      const application_commands: APIApplicationCommand[] =
-        await this.getAPIApplicationCommands();
+    const application_commands: APIApplicationCommand[] =
+      await this.getAPIApplicationCommands();
 
-      if (application_commands.length === 0) {
-        throw new Error("No API application commands found.");
-      }
-
-      const application_command: APIApplicationCommand =
-        application_commands.at(0)!;
-
-      this._data = {
-        type: 2,
-        application_id: config.MIDJOURNEY_BOT_APPLICATION_ID,
-        guild_id: config.SERVER_ID,
-        channel_id: config.CHANNEL_ID,
-        session_id: this.generate_key(),
-        data: {
-          version: application_command.version,
-          id: application_command.id,
-          name: application_command.name,
-          type: application_command.type,
-          options: [
-            {
-              type: application_command.options?.at(0)?.type!,
-              name: application_command.options?.at(0)?.name!,
-              value: undefined,
-            },
-          ],
-          application_command: application_command,
-          attachments: [],
-        },
-        nonce: undefined,
-      };
-    } catch (error: any) {
-      console.error(error);
+    if (application_commands.length === 0) {
+      throw new Error("No API application commands found.");
     }
+
+    const application_command: APIApplicationCommand =
+      application_commands.at(0)!;
+
+    this._data = {
+      type: 2,
+      application_id: config.MIDJOURNEY_BOT_APPLICATION_ID,
+      guild_id: config.SERVER_ID,
+      channel_id: config.CHANNEL_ID,
+      session_id: this.generate_key(),
+      data: {
+        version: application_command.version,
+        id: application_command.id,
+        name: application_command.name,
+        type: application_command.type,
+        options: [
+          {
+            type: application_command.options!.at(0)!.type!,
+            name: application_command.options!.at(0)!.name!,
+            value: undefined,
+          },
+        ],
+        application_command: application_command,
+        attachments: [],
+      },
+      nonce: undefined,
+    };
   }
 
   private calcNonce(): string {

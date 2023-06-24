@@ -17,7 +17,7 @@ export interface DiscordAPIPayload {
     type: ApplicationCommandType;
     options: CommandInteractionOption[];
     application_command: APIApplicationCommand;
-    attachments: any[];
+    attachments: unknown[];
   };
   nonce: string | undefined;
 }

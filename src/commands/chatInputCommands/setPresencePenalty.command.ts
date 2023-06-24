@@ -5,8 +5,8 @@ import { updateConfig } from "../../utils";
 
 const run = async (interaction: CommandInteraction) => {
   try {
-    const presencePenalty: number = interaction.options.data.at(0)
-      ?.value! as number;
+    const presencePenalty: number = interaction.options.data.at(0)!
+      .value as number;
     const midjourneyImagineCommandSender =
       await MidjourneyImagineCommandSender.getInstance();
 
