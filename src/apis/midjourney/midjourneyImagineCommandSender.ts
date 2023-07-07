@@ -34,7 +34,6 @@ export class MidjourneyImagineCommandSender {
   public static async getInstance(): Promise<MidjourneyImagineCommandSender> {
     if (!this._instance) {
       this._instance = new MidjourneyImagineCommandSender();
-      await this._instance.initData();
     }
     return this._instance;
   }
@@ -54,7 +53,6 @@ export class MidjourneyImagineCommandSender {
       if (prompts.length === promptCounter) {
         promptCounter = 0;
         prompts = await this._gpt.generatePrompts();
-        console.log("Set new prompts");
       }
 
       this._data!.data.options[0].value = prompts.at(promptCounter++);
@@ -81,9 +79,9 @@ export class MidjourneyImagineCommandSender {
     return this._gpt;
   }
 
-  private async initData(): Promise<void> {
+  public async initData(channelId: string, guildId: string): Promise<void> {
     const application_commands: APIApplicationCommand[] =
-      await this.getAPIApplicationCommands();
+      await this.getAPIApplicationCommands(channelId);
 
     if (application_commands.length === 0) {
       throw new Error("No API application commands found.");
@@ -95,8 +93,8 @@ export class MidjourneyImagineCommandSender {
     this._data = {
       type: 2,
       application_id: config.MIDJOURNEY_BOT_APPLICATION_ID,
-      guild_id: config.SERVER_ID,
-      channel_id: config.CHANNEL_ID,
+      guild_id: guildId,
+      channel_id: channelId,
       session_id: this.generate_key(),
       data: {
         version: application_command.version,
@@ -129,7 +127,9 @@ export class MidjourneyImagineCommandSender {
     return encryptedSessionId;
   }
 
-  private async getAPIApplicationCommands(): Promise<APIApplicationCommand[]> {
+  private async getAPIApplicationCommands(
+    channelID: string
+  ): Promise<APIApplicationCommand[]> {
     const type: string = "1";
     const query: string = "imagine";
     const limit: string = "7";
@@ -142,7 +142,7 @@ export class MidjourneyImagineCommandSender {
       include_applications,
     });
 
-    const url: string = `${this._url}/channels/${config.CHANNEL_ID}/application-commands/search?${params}`;
+    const url: string = `${this._url}/channels/${channelID}/application-commands/search?${params}`;
 
     const {
       application_commands,
