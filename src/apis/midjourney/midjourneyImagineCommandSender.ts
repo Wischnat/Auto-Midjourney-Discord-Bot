@@ -16,6 +16,7 @@ export class MidjourneyImagineCommandSender {
   private _header: AxiosRequestConfig;
   private _intervalMS: number; // Discord Rate Limited < 2s
   private _gpt: GPT;
+  private _midjourneyBotApplicationId: string;
 
   private constructor() {
     this._enableCommandSending = false;
@@ -29,6 +30,7 @@ export class MidjourneyImagineCommandSender {
       },
     };
     this._gpt = new GPT();
+    this._midjourneyBotApplicationId = "936929561302675456";
   }
 
   public static async getInstance(): Promise<MidjourneyImagineCommandSender> {
@@ -92,7 +94,7 @@ export class MidjourneyImagineCommandSender {
 
     this._data = {
       type: 2,
-      application_id: config.MIDJOURNEY_BOT_APPLICATION_ID,
+      application_id: this._midjourneyBotApplicationId,
       guild_id: guildId,
       channel_id: channelId,
       session_id: this.generate_key(),
