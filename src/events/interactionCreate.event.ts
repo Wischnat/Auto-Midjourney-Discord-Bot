@@ -2,7 +2,7 @@ import { CommandInteraction, Client, Interaction } from "discord.js";
 import { ChatInputCommand } from "../types/index";
 import { chatInputCommands } from "../commands/commands";
 
-export default (client: Client): void => {
+export const interactionCreateEvent = (client: Client): void => {
   client.on("interactionCreate", async (interaction: Interaction) => {
     if (interaction.isCommand() || interaction.isContextMenuCommand()) {
       await handleCommand(client, interaction);
