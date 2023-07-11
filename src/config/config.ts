@@ -1,0 +1,36 @@
+import "dotenv/config";
+const {
+  MY_BOT_DISCORD_TOKEN,
+  MY_BOT_APPLICATION_ID,
+  ERROR_CHANNEL_ID,
+  AUTHORIZATION,
+  OPENAI_API_KEY,
+} = process.env;
+
+if (
+  !MY_BOT_DISCORD_TOKEN ||
+  !MY_BOT_APPLICATION_ID ||
+  !AUTHORIZATION ||
+  !OPENAI_API_KEY ||
+  !ERROR_CHANNEL_ID
+) {
+  throw new Error(
+    `Missing environment variables: 
+    MY_BOT_DISCORD_TOKEN:${MY_BOT_DISCORD_TOKEN}, 
+    MY_BOT_APPLICATION_ID:${MY_BOT_APPLICATION_ID}, 
+    AUTHORIZATION: ${AUTHORIZATION},
+    OPENAI_API_KEY: ${OPENAI_API_KEY},
+    ERROR_CHANNEL_ID: ${ERROR_CHANNEL_ID}
+    `
+  );
+}
+
+const config: Record<string, string> = {
+  MY_BOT_DISCORD_TOKEN,
+  MY_BOT_APPLICATION_ID,
+  AUTHORIZATION,
+  OPENAI_API_KEY,
+  ERROR_CHANNEL_ID,
+};
+
+export default config;
