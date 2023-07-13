@@ -1,1 +1,1 @@
-export * from "./attachment.message";
+export * from "./componentInteraction.message";
