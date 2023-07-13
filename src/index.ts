@@ -6,6 +6,7 @@ import {
   messageCreateEvent,
   readyEvent,
 } from "./events";
+import { RealESRGAN } from "./apis";
 
 // GatewayIntentBits.MessageContent
 // https://stackoverflow.com/questions/64006888/discord-js-bot-disallowed-intents-privileged-intent-provided-is-not-enabled-o
@@ -16,10 +17,11 @@ const client = new Client({
     GatewayIntentBits.MessageContent,
   ],
 });
+const realESRGAN: RealESRGAN = new RealESRGAN();
 
 readyEvent(client);
 interactionCreateEvent(client);
-messageCreateEvent(client);
+messageCreateEvent(client, realESRGAN);
 errorHandler(client);
 
 client.login(config.MY_BOT_DISCORD_TOKEN);

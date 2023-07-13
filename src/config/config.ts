@@ -5,6 +5,7 @@ const {
   ERROR_CHANNEL_ID,
   AUTHORIZATION,
   OPENAI_API_KEY,
+  REPLICATE_API_KEY,
 } = process.env;
 
 if (
@@ -12,7 +13,8 @@ if (
   !MY_BOT_APPLICATION_ID ||
   !AUTHORIZATION ||
   !OPENAI_API_KEY ||
-  !ERROR_CHANNEL_ID
+  !ERROR_CHANNEL_ID ||
+  !REPLICATE_API_KEY
 ) {
   throw new Error(
     `Missing environment variables: 
@@ -21,6 +23,7 @@ if (
     AUTHORIZATION: ${AUTHORIZATION},
     OPENAI_API_KEY: ${OPENAI_API_KEY},
     ERROR_CHANNEL_ID: ${ERROR_CHANNEL_ID}
+    REPLICATE_API_KEY: ${REPLICATE_API_KEY}
     `
   );
 }
@@ -31,6 +34,7 @@ const config: Record<string, string> = {
   AUTHORIZATION,
   OPENAI_API_KEY,
   ERROR_CHANNEL_ID,
+  REPLICATE_API_KEY,
 };
 
 export default config;

@@ -1,8 +1,18 @@
 import { Message } from "discord.js";
-import { componentInteraction } from "../messages";
+import { attachmentMessage, componentInteraction } from "../messages";
+import { RealESRGAN } from "../apis";
 
-export const handleMessage = (message: Message) => {
+export const handleMessage = (message: Message, realESRGAN: RealESRGAN) => {
   if (!message.author.bot) return;
 
-  componentInteraction(message);
+  if (isStandaloneImage(message)) {
+    attachmentMessage(message, realESRGAN);
+  } else {
+    componentInteraction(message);
+  }
+};
+
+const isStandaloneImage = (message: Message) => {
+  const standaloneImageIndicator = "Image #";
+  return message.content.includes(standaloneImageIndicator);
 };

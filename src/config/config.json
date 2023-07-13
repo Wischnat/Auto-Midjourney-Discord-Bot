@@ -12,5 +12,10 @@
     "promptRole": "Assume the role of a midjourney (image creation) prompt creator.",
     "maxPrompts": 2,
     "promptTopics": "Nature, Night, lake,"
+  },
+  "realESRGAN": {
+    "enable": false,
+    "scale": 4,
+    "faceEnhance": false
   }
 }
