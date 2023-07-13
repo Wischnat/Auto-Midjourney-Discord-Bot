@@ -1,24 +1,22 @@
 import axios from "axios";
 import config from "../../config/config";
 import { APIApplicationCommand } from "discord.js";
-import { DiscordAPIPayload } from "../../types/index";
-import { createHash, randomUUID, Hash } from "crypto";
-import { AxiosRequestConfig } from "axios";
 import { GPT } from "../gpt/gpt";
 import { clearIntervalAsync, setIntervalAsync } from "set-interval-async";
 import { midjourney } from "../../config/config.json";
-export class MidjourneyImagineCommandSender {
+import { Request } from "./request";
+import { DiscordApplicationCommandPayload } from "../../types";
+
+export class MidjourneyImagineCommandSender extends Request<DiscordApplicationCommandPayload> {
   private static _instance: MidjourneyImagineCommandSender;
   private _enableCommandSending: boolean;
   private _limit: number; //Default value -> Midjourney Basic Plan: ~200 / month
-  private _url: string;
-  private _data: DiscordAPIPayload | undefined;
-  private _header: AxiosRequestConfig;
   private _intervalMS: number; // Discord Rate Limited < 2s
   private _gpt: GPT;
-  private _midjourneyBotApplicationId: string;
+  // protected _midjourneyBotApplicationId: string = "936929561302675456";
 
   private constructor() {
+    super();
     this._enableCommandSending = false;
     this._url = "https://discord.com/api/v9";
     this._limit = midjourney.limit;
@@ -30,7 +28,6 @@ export class MidjourneyImagineCommandSender {
       },
     };
     this._gpt = new GPT();
-    this._midjourneyBotApplicationId = "936929561302675456";
   }
 
   public static async getInstance(): Promise<MidjourneyImagineCommandSender> {
@@ -57,12 +54,14 @@ export class MidjourneyImagineCommandSender {
         prompts = await this._gpt.generatePrompts();
       }
 
-      this._data!.data.options[0].value = prompts.at(promptCounter++);
-      this._data!.nonce = this.calcNonce();
+      (
+        this._payload! as DiscordApplicationCommandPayload
+      ).data!.options[0].value = prompts.at(promptCounter++);
+      this._payload!.nonce = this.calcNonce();
 
       await axios.post(
         url,
-        { payload_json: JSON.stringify(this._data!) },
+        { payload_json: JSON.stringify(this._payload!) },
         this._header
       );
       count++;
@@ -81,7 +80,11 @@ export class MidjourneyImagineCommandSender {
     return this._gpt;
   }
 
-  public async initData(channelId: string, guildId: string): Promise<void> {
+  public async initData(
+    channelId: string,
+    guildId: string,
+    applicationId: string
+  ): Promise<void> {
     const application_commands: APIApplicationCommand[] =
       await this.getAPIApplicationCommands(channelId);
 
@@ -92,12 +95,12 @@ export class MidjourneyImagineCommandSender {
     const application_command: APIApplicationCommand =
       application_commands.at(0)!;
 
-    this._data = {
+    this._payload = {
       type: 2,
-      application_id: this._midjourneyBotApplicationId,
+      application_id: applicationId,
       guild_id: guildId,
       channel_id: channelId,
-      session_id: this.generate_key(),
+      session_id: this.generateSessionId(),
       data: {
         version: application_command.version,
         id: application_command.id,
@@ -115,18 +118,6 @@ export class MidjourneyImagineCommandSender {
       },
       nonce: undefined,
     };
-  }
-
-  private calcNonce(): string {
-    return Math.random().toPrecision(19).toString().substring(2);
-  }
-
-  private generate_key(): string {
-    const sessionId: string = randomUUID().replace("-", "");
-    const sha2: Hash = createHash("sha256");
-    const encryptedSessionId: string = sha2.update(sessionId).digest("hex");
-
-    return encryptedSessionId;
   }
 
   private async getAPIApplicationCommands(

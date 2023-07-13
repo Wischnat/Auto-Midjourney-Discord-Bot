@@ -3,10 +3,13 @@ import { ChatInputCommand } from "../../types/index";
 import { MidjourneyImagineCommandSender } from "../../apis/midjourney/midjourneyImagineCommandSender";
 
 const run = async (interaction: CommandInteraction) => {
-
   const midjourneyImagineCommandSender =
     await MidjourneyImagineCommandSender.getInstance();
-  midjourneyImagineCommandSender.initData(interaction.channelId, interaction.guildId!);
+  midjourneyImagineCommandSender.initData(
+    interaction.channelId,
+    interaction.guildId!,
+    interaction.applicationId
+  );
   midjourneyImagineCommandSender.enableCommandSending = true;
   midjourneyImagineCommandSender.sendCommands();
 
