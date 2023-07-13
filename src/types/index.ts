@@ -4,3 +4,4 @@ export * from "./midjourneyConfig";
 export * from "./chatInputCommand";
 export * from "./DiscordPayload/discordAPIPayload";
 export * from "./DiscordPayload/discordApplicationCommandPayload";
+export * from "./DiscordPayload/discordComponentInteractionPayload";
