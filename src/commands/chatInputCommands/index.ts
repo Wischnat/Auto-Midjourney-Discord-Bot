@@ -11,3 +11,4 @@ export * from "./setMaxPrompts.command";
 export * from "./setPromptTopics.command";
 export * from "./setRealESRGANEnable.command";
 export * from "./setScale.command";
+export * from "./setFaceEnhance.command";

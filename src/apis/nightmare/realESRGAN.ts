@@ -40,4 +40,8 @@ export class RealESRGAN extends NightmareAI {
   public set scale(value: number) {
     this._scale = value;
   }
+
+  public set faceEnhance(value: boolean) {
+    this._faceEnhance = value;
+  }
 }
