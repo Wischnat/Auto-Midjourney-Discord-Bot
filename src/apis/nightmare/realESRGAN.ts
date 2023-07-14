@@ -36,4 +36,8 @@ export class RealESRGAN extends NightmareAI {
 
     return url;
   }
+
+  public set scale(value: number) {
+    this._scale = value;
+  }
 }
