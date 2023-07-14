@@ -10,5 +10,9 @@ export abstract class NightmareAI {
   });
   protected _enable: boolean;
 
+  public set enable(value: boolean) {
+    this._enable = value;
+  }
+
   public abstract run(input: string): Promise<string | null>;
 }

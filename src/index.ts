@@ -20,7 +20,7 @@ const client = new Client({
 const realESRGAN: RealESRGAN = new RealESRGAN();
 
 readyEvent(client);
-interactionCreateEvent(client);
+interactionCreateEvent(client, realESRGAN);
 messageCreateEvent(client, realESRGAN);
 errorHandler(client);
 
