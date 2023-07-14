@@ -26,7 +26,7 @@
 
    `AUTHORIZATION`:
 
-   1. Open [Discord](https://discord.com/channels/@me) in your browser  
+   1. Open [Discord](https://discord.com/channels/@me) in your browser
    2. Open `DevTools`(ctrl + shift + i)
    3. Click `"Network"` from the toolbar at the top
    4. Reload the page `(F5)`
@@ -34,7 +34,7 @@
    6. Click on the `"library" request`
    7. Click the `"Headers"` tab and search for `"authorization"`
    8. Copy and paste this to `AUTHORIZATION`
-   
+
    `OPENAI_API_KEY`:
 
    1. Go to [OpenAI API keys](https://platform.openai.com/account/api-keys)
@@ -44,12 +44,18 @@
    `ERROR_CHANNEL_ID`:
    Available after creating the discord server
 
+   `REPLICATE_API_KEY`:
+
+   1. Go to [replicate](https://replicate.com/account/api-tokens)
+   2. Copy your token and past this to `"REPLICATE_API_KEY"`
+
    ```sh
    MY_BOT_DISCORD_TOKEN=
    MY_BOT_APPLICATION_ID=
    AUTHORIZATION=
    OPENAI_API_KEY=
    ERROR_CHANNEL_ID=
+   REPLICATE_API_KEY=
    ```
 
 ### Create Discord Server & Bot
@@ -75,21 +81,36 @@
 
 ## Default Configs
 
-   The configurations can be changed using Slash Commands.
-   ```sh
-   {
-   "midjourney": {
-   "limit": 200
-   },
-   "gpt": {
-   "model": "text-davinci-003",
-   "maxTokens": 4000,
-   "temperature": 1,
-   "topP": 1,
-   "frequencyPenalty": 0,
-   "presencePenalty": 0,
-   "promptRole": "Assume the role of a midjourney (image creation) prompt creator.",
-   "maxPrompts": 2,
-   "promptTopics": "Nature, Night, lake,"
-   }
-   ```
+The configurations can be changed using Slash Commands.
+
+```sh
+{
+"midjourney": {
+ "limit": 200
+},
+"gpt": {
+ "model": "text-davinci-003",
+ "maxTokens": 4000,
+ "temperature": 1,
+ "topP": 1,
+ "frequencyPenalty": 0,
+ "presencePenalty": 0,
+ "promptRole": "Assume the role of a midjourney (image creation) prompt creator.",
+ "maxPrompts": 2,
+ "promptTopics": "Nature, Night, lake,"
+},
+"nightmare": {
+ "realESRGAN": {
+   "enable": false,
+   "scale": 4,
+   "faceEnhance": false
+ }
+}
+}
+```
+
+## Images Location
+
+```sh
+./dist/images
+```
